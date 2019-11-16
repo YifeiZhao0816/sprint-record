@@ -9,8 +9,8 @@ namespace SprintRecord.Models
         public int TotalWorkHrs { get; set; }
         public int TotalSprintHrs { get; set; }
         public int SprintPercent { get; set; }
-        private Dictionary<string, int[]> MemberStatus { get; set; } // <string name, int[2]{workHrs, sprintHrs}>
-        private List<SprintWeek> Sprints { get; set; }
+        public Dictionary<string, int[]> MemberStatus { get; private set; } // <string name, int[2]{workHrs, sprintHrs}>
+        public List<SprintWeek> Sprints { get; private set; }
 
         public Team(string name, IEnumerable<string> members)
         {
