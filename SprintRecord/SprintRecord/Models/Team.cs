@@ -27,6 +27,17 @@ namespace SprintRecord.Models
             }
         }
 
+        public Team()
+        {
+            Name = "";
+            AvgVelocity = int.MinValue;
+            TotalWorkHrs = int.MinValue;
+            TotalSprintHrs = int.MinValue;
+            SprintPercent = int.MinValue;
+            Sprints = new List<SprintWeek>();
+            MemberStatus = new Dictionary<string, int[]>();
+        }
+
         public void UpdateSprintWeek(Dictionary<string, int[]> memberCapacity,
                                      int carryOver,
                                      int commitment,

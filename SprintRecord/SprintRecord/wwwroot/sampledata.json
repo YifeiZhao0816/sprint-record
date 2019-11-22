@@ -1,3 +1,16 @@
 [
-  {}
+  {
+    "Name": "test",
+    "AvgVelocity": -2147483648,
+    "TotalWorkHrs": -2147483648,
+    "TotalSprintHrs": -2147483648,
+    "SprintPercent": -2147483648,
+    "MemberStatus": {
+      "Rob": [
+        -2147483648,
+        -2147483648
+      ]
+    },
+    "Sprints": []
+  }
 ]

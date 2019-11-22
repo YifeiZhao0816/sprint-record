@@ -14,7 +14,7 @@ namespace SprintRecord.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private JsonTeamService  TeamService { get; set; }
-        public List<Team> Teams { get; private set; }
+        public IEnumerable<Team> Teams { get; private set; }
 
         public IndexModel(ILogger<IndexModel> logger, JsonTeamService jsonTeamService)
         {
@@ -24,10 +24,7 @@ namespace SprintRecord.Pages
 
         public void OnGet()
         {
-            Teams = new List<Team>();
-            List<string> names = new List<string>();
-            names.Add("Rob");
-            Teams.Add(new Team("test", names));
+            Teams = TeamService.GetSprintWeeks();
         }
     }
 }

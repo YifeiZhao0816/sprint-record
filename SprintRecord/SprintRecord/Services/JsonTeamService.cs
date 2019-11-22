@@ -40,7 +40,7 @@ namespace SprintRecord.Services
 
                     {
 
-                        SkipValidation = true,
+                        SkipValidation = false,
 
                         Indented = true
 
