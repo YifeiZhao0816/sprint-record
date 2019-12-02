@@ -19,7 +19,7 @@ namespace SprintRecord.Services
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "sampledata.json"); }
         }
 
-        public IEnumerable<Team> GetSprintWeeks()
+        public IEnumerable<Team> GetTeams()
         {
             using (var jsonFileReader = File.OpenText(JsonFileName))
             {

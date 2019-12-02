@@ -3,44 +3,9 @@
 @{
     ViewData["Title"] = "Home page";
 }
-    <style>
-table, td, th {
-  border: 1px solid black;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-</style>
+@using SprintRecord.Components
 
 
-    <div class="card-columns">
-        @foreach (var team in Model.Teams)
-        {
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-text">Team:</div>
-                    <h4 class="card-title ">@team.Name</h4>
-                    @if (team.TotalWorkHrs == int.MinValue)
-                    {
-                        <div class="card-text">This is a new team</div>
-                    }
-                    else
-                    {
-                        <table>
-                            <tr>
-                                <th>Sprint period</th>
-                                <th>Team Capacity</th>
-                                <th>Points Added</th>
-                            </tr>
-                            @foreach (var sprint in team.Sprints)
-                            {
+@(await Html.RenderComponentAsync<ListTeams>(RenderMode.ServerPrerendered))
 
-                            }
-                        </table>
-                    }
-
-                </div>
-            </div>
-        }
+<script src="_framework/blazor.server.js"></script>

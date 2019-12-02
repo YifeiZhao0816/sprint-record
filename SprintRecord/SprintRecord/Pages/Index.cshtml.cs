@@ -13,18 +13,18 @@ namespace SprintRecord.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private JsonTeamService  TeamService { get; set; }
-        public IEnumerable<Team> Teams { get; private set; }
+
 
         public IndexModel(ILogger<IndexModel> logger, JsonTeamService jsonTeamService)
         {
             _logger = logger;
-            TeamService = jsonTeamService;
         }
 
         public void OnGet()
         {
-            Teams = TeamService.GetSprintWeeks();
+           
         }
+
+
     }
 }

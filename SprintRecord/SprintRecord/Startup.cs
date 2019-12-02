@@ -25,6 +25,8 @@ namespace SprintRecord
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddHttpClient();
             services.AddTransient<JsonTeamService>();
         }
 
@@ -52,6 +54,7 @@ namespace SprintRecord
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapBlazorHub();
             });
         }
     }

@@ -1,0 +1,132 @@
+﻿
+@using SprintRecord.Models
+@using SprintRecord.Services
+@using Microsoft.AspNetCore.Components.Web
+@inject JsonTeamService teamService
+
+<style>
+    table, td, th {
+        border: 1px solid black;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 22px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 8px 4px;
+        cursor: pointer;
+    }
+</style>
+
+<button class="button" @onclick="e => showNewTeam()">Add Team</button>
+@if (showNewTeamPanel)
+{
+    <input value="Add this team" @onclick="e=>addTeam()" type="button"/>
+    <h6>Team name:</h6>
+    <input type="text" id="name" @bind="teamName"/>
+    <h6>Members: </h6>
+    @if (memberNames != null)
+    {
+        foreach (string name in memberNames)
+        {
+            <h6>@name</h6>
+        }
+    }
+    <input type="button" @onclick="e => showNewMember()" value="Add Member"/>
+    @if (showNewMemberPanel)
+    {
+        <form>
+            <input type="text" name="memName" placeholder="Member Name..." @bind="memName"/>
+            <input type="button" value="Add" @onclick="e => addMember()"/>
+        </form>
+    }
+}
+
+<div class="card-columns">
+    @foreach (var team in teamService.GetTeams())
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="card-text">Team:</div>
+                <h4 class="card-title ">@team.Name</h4>
+                @if (team.TotalWorkHrs == int.MinValue)
+                {
+                    <div class="card-text">This is a new team</div>
+                }
+                else
+                {
+                    <table>
+                        <tr>
+                            <th>Sprint period</th>
+                            <th>Team Capacity</th>
+                            <th>Points Added</th>
+                        </tr>
+                        @foreach (var sprint in team.Sprints)
+                        {
+
+                        }
+                    </table>
+                }
+                <button @onclick="(e => showDetails(team.Name))" class="button">see details</button>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+@if (detailedTeam != null)
+{
+    <h3>@detailedTeam.Name</h3>
+    <h4>This Week:</h4>
+}
+
+@code{
+    IEnumerable<string> memberNames;
+    Team detailedTeam;
+    bool showDetail = false;
+    bool showNewTeamPanel = false;
+    bool showNewMemberPanel = false;
+    string memName;
+    string teamName;
+    int totalHrs = 0;
+
+    void showDetails(string teamname)
+    {
+        detailedTeam = teamService.GetTeams().First(x => x.Name == teamname);
+    }
+
+    void showNewTeam()
+    {
+        showNewTeamPanel = !showNewTeamPanel;
+    }
+
+    void showNewMember()
+    {
+        showNewMemberPanel = !showNewMemberPanel;
+    }
+
+    void addMember()
+    {
+        if (memberNames == null)
+        {
+            memberNames = new List<string>();
+        }
+        memberNames = memberNames.Append(memName);
+    }
+
+    void addTeam()
+    {
+        teamService.StoreTeamsData(teamService.GetTeams().Append(new Team(teamName, memberNames)));
+    }
+}
