@@ -1,0 +1,49 @@
+﻿@using SprintRecord.Models
+@using Microsoft.AspNetCore.Components.Web
+@inject SprintRecord.Services.JsonTeamService teamService
+
+<style>
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 22px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 8px 4px;
+        cursor: pointer;
+    }
+</style>
+
+<button class="button" @onclick="e => click()">Add Sprint</button>
+@if (showPanel)
+{
+    <div>
+        <h5>Select Team: </h5>
+        <select>
+            @foreach (Team team in teamService.GetTeams())
+            {
+                <option>@team.Name</option>
+            }
+        </select>
+    </div>
+    <div>
+        <h5>Year: </h5>
+        <input value="@DateTime.Now.Year" />
+    </div>
+    <div>
+        <h5>Period:</h5>
+        <input value="" />
+    </div>
+}
+
+@code {
+    bool showPanel = false;
+
+    void click()
+    {
+        showPanel = !showPanel;
+    }
+}

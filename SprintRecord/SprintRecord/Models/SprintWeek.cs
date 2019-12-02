@@ -7,6 +7,8 @@ namespace SprintRecord.Models
 {
     public class SprintWeek
     {
+        public int Year { get; set; }
+        public int Period { get; set; }
         public int CarryOver { get; set; }
         public int Commitment { get; set; }
         public int PointsAdded { get; set; }

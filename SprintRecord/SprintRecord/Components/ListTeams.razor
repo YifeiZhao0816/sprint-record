@@ -31,9 +31,9 @@
 <button class="button" @onclick="e => showNewTeam()">Add Team</button>
 @if (showNewTeamPanel)
 {
-    <input value="Add this team" @onclick="e=>addTeam()" type="button"/>
+    <input value="Add this team" @onclick="e=>addTeam()" type="button" />
     <h6>Team name:</h6>
-    <input type="text" id="name" @bind="teamName"/>
+    <input type="text" id="name" @bind="teamName" />
     <h6>Members: </h6>
     @if (memberNames != null)
     {
@@ -42,12 +42,12 @@
             <h6>@name</h6>
         }
     }
-    <input type="button" @onclick="e => showNewMember()" value="Add Member"/>
+    <input type="button" @onclick="e => showNewMember()" value="Add Member" />
     @if (showNewMemberPanel)
     {
         <form>
-            <input type="text" name="memName" placeholder="Member Name..." @bind="memName"/>
-            <input type="button" value="Add" @onclick="e => addMember()"/>
+            <input type="text" name="memName" placeholder="Member Name..." @bind="memName" />
+            <input type="button" value="Add" @onclick="e => addMember()" />
         </form>
     }
 }
@@ -76,8 +76,8 @@
 
                         }
                     </table>
+                    <button @onclick="(e => showDetails(team.Name))" class="button">see details</button>
                 }
-                <button @onclick="(e => showDetails(team.Name))" class="button">see details</button>
             </div>
         </div>
     }
@@ -88,7 +88,10 @@
 @if (detailedTeam != null)
 {
     <h3>@detailedTeam.Name</h3>
-    <h4>This Week:</h4>
+    <div><h6>Average Velocity:</h6><h6>@detailedTeam.AvgVelocity</h6></div>
+    <div><h6>Total Sprint Hours:</h6><h6>@detailedTeam.TotalSprintHrs</h6></div>
+    <div><h6>Sprint Percent:</h6><h6>@detailedTeam.SprintPercent</h6></div>
+    <h5>    Sprints:</h5>
 }
 
 @code{
