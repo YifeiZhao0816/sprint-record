@@ -42,7 +42,9 @@ namespace SprintRecord.Models
                                      int carryOver,
                                      int commitment,
                                      int ptsAdded,
-                                     int completed)
+                                     int completed,
+                                     int year,
+                                     int period)
         {
             MemberStatus = memberCapacity;
             TotalWorkHrs = 0;
@@ -53,7 +55,7 @@ namespace SprintRecord.Models
                 TotalSprintHrs += member.Value[1];
             }
 
-            Sprints.Add(new SprintWeek(carryOver, commitment, ptsAdded, completed, TotalSprintHrs * 100 / TotalWorkHrs));
+            Sprints.Add(new SprintWeek(year, period, carryOver, commitment, ptsAdded, completed, TotalSprintHrs * 100 / TotalWorkHrs));
         }
 
 

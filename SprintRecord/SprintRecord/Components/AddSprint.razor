@@ -15,6 +15,22 @@
         margin: 8px 4px;
         cursor: pointer;
     }
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
+      background-color: #7A7374;
+      padding: 10px;
+    }
+    .grid-item {
+      background-color: rgba(226, 225, 228, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 10px;
+      font-size: 20px;
+      text-align: center;
+    }
+    .input{
+        width: 60px;
+    }
 </style>
 
 <button class="button" @onclick="e => click()">Add Sprint</button>
@@ -22,10 +38,11 @@
 {
     <div>
         <h5>Select Team: </h5>
-        <select>
+        <select @bind="selectedIndex" @onclick="e => selectTeam()" >
+            <option value="Select">Select</option>
             @foreach (Team team in teamService.GetTeams())
             {
-                <option>@team.Name</option>
+                <option value="@team.Name">@team.Name</option>
             }
         </select>
     </div>
@@ -37,13 +54,75 @@
         <h5>Period:</h5>
         <input value="" />
     </div>
+    <input type="button" value="Add this Sprint" />
+    @if (selectedTeam != null)
+    {
+        <div>@selectedTeam.MemberStatus.Count</div>
+        <div class="grid-container">
+            @foreach (var member in selectedTeam.MemberStatus)
+            {
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+                <div class="grid-item">
+                    <input class="input" />
+                </div>
+            }
+        
+        </div>
+    }
+
 }
 
 @code {
     bool showPanel = false;
+    string selectedIndex;
+    Team selectedTeam;
 
     void click()
     {
         showPanel = !showPanel;
+    }
+
+    void selectTeam()
+    {
+        if (selectedIndex == null || selectedIndex == "Select")
+        {
+            return;
+        }
+        selectedTeam = teamService.GetTeams().First(x => x.Name == selectedIndex);
     }
 }

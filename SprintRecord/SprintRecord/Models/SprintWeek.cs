@@ -15,8 +15,10 @@ namespace SprintRecord.Models
         public int Completed { get; set; }
         public int TeamCapacity { get; set; }
         
-        public SprintWeek(int carryOver, int commitment, int pointsAdded, int completed, int teamCapacity)
+        public SprintWeek(int yr, int period, int carryOver, int commitment, int pointsAdded, int completed, int teamCapacity)
         {
+            Year = yr;
+            Period = period;
             CarryOver = carryOver;
             Commitment = commitment;
             PointsAdded = pointsAdded;
