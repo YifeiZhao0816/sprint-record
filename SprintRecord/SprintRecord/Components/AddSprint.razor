@@ -38,7 +38,7 @@
 {
     <div>
         <h5>Select Team: </h5>
-        <select @bind="selectedIndex" @onclick="e => selectTeam()" >
+        <select @bind="selectedName" @onclick="e => selectTeam()" >
             <option value="Select">Select</option>
             @foreach (Team team in teamService.GetTeams())
             {
@@ -109,7 +109,7 @@
 
 @code {
     bool showPanel = false;
-    string selectedIndex;
+    string selectedName;
     Team selectedTeam;
 
     void click()
@@ -119,10 +119,10 @@
 
     void selectTeam()
     {
-        if (selectedIndex == null || selectedIndex == "Select")
+        if (selectedName == null || selectedName == "Select")
         {
             return;
         }
-        selectedTeam = teamService.GetTeams().First(x => x.Name == selectedIndex);
+        selectedTeam = teamService.GetTeams().First(x => x.Name == selectedName);
     }
 }
