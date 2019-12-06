@@ -99,7 +99,7 @@
 
                         }
                     </table>
-                    <button @onclick="(e => showDetails(team.Name))" class="button">see details</button>
+                    <button @onclick="(e => selectTeam(team.Name))" class="button">see details</button>
                 }
             </div>
         </div>
@@ -127,7 +127,7 @@
     string teamName;
     int totalHrs = 0;
 
-    void showDetails(string teamname)
+    void selectTeam(string teamname)
     {
         detailedTeam = teamService.GetTeams().First(x => x.Name == teamname);
     }
