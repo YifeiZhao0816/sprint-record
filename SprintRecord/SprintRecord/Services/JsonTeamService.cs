@@ -35,10 +35,18 @@ namespace SprintRecord.Services
         {
             using (var outputStream = File.OpenWrite(JsonFileName))
             {
-                using (var jsonWriter = new Utf8JsonWriter(outputStream, new JsonWriterOptions{SkipValidation = false, Indented = true}))
-                {
-                    JsonSerializer.Serialize(jsonWriter, teams);
-                }
+                JsonSerializer.Serialize(
+                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
+
+                    {
+
+                        SkipValidation = false,
+
+                        Indented = true
+
+                    }),
+                    teams
+                );
             }
         }
 

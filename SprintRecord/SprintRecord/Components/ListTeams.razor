@@ -153,8 +153,6 @@
 
     void addTeam()
     {
-        var teams = teamService.GetTeams();
-        teams.Append(new Team(teamName, memberNames));
-        teamService.StoreTeamsData(teams);
+        teamService.StoreTeamsData(teamService.GetTeams().Append(new Team(teamName, memberNames)));
     }
 }

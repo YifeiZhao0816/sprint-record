@@ -4,15 +4,13 @@ namespace SprintRecord.Models
 {
     public class Team
     {
-        public List<Developer> Developers { get; set; }
-
         public string Name { get; set; }
         public int AvgVelocity { get; set; }
         public int TotalWorkHrs { get; set; }
         public int TotalSprintHrs { get; set; }
         public int SprintPercent { get; set; }
-        public List<MemberStatus> MemberStatusList { get; set; } // <string name, int[2]{workHrs, sprintHrs}>
-        public List<SprintWeek> Sprints { get; set; }
+        public Dictionary<string, int[]> MemberStatus { get; private set; } // <string name, int[2]{workHrs, sprintHrs}>
+        public List<SprintWeek> Sprints { get; private set; }
 
         public Team(string name, IEnumerable<string> members)
         {
@@ -22,10 +20,10 @@ namespace SprintRecord.Models
             SprintPercent = int.MinValue;
             Name = name;
             Sprints = new List<SprintWeek>();
-            MemberStatusList = new List<MemberStatus>();
+            MemberStatus = new Dictionary<string, int[]>();
             foreach (var member in members)
             {
-                MemberStatusList.Add(new MemberStatus { Name = member, WorkHours = int.MinValue, SprintHours = int.MinValue});
+                MemberStatus.Add(member, new int[2] { int.MinValue, int.MinValue });
             }
         }
 
@@ -37,10 +35,10 @@ namespace SprintRecord.Models
             TotalSprintHrs = int.MinValue;
             SprintPercent = int.MinValue;
             Sprints = new List<SprintWeek>();
-            MemberStatusList = new List<MemberStatus>();
+            MemberStatus = new Dictionary<string, int[]>();
         }
 
-        public void UpdateSprintWeek(List<MemberStatus> memberCapacity,
+        public void UpdateSprintWeek(Dictionary<string, int[]> memberCapacity,
                                      int carryOver,
                                      int commitment,
                                      int ptsAdded,
@@ -48,13 +46,13 @@ namespace SprintRecord.Models
                                      int year,
                                      int period)
         {
-            MemberStatusList = memberCapacity;
+            MemberStatus = memberCapacity;
             TotalWorkHrs = 0;
             TotalSprintHrs = 0;
-            foreach (var member in MemberStatusList)
+            foreach (var member in MemberStatus)
             {
-                TotalWorkHrs += member.WorkHours;
-                TotalSprintHrs += member.SprintHours;
+                TotalWorkHrs += member.Value[0];
+                TotalSprintHrs += member.Value[1];
             }
 
             Sprints.Add(new SprintWeek(year, period, carryOver, commitment, ptsAdded, completed, TotalSprintHrs * 100 / TotalWorkHrs));
@@ -69,7 +67,7 @@ namespace SprintRecord.Models
                                      int workHrs,
                                      int sprintHrs)
         {
-            //MemberStatus = memberCapacity;
+            MemberStatus = memberCapacity;
             TotalWorkHrs = workHrs;
             TotalSprintHrs = sprintHrs;
           

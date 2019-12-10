@@ -57,9 +57,9 @@
     <input type="button" value="Add this Sprint" />
     @if (selectedTeam != null)
     {
-        <div>@selectedTeam.MemberStatusList.Count</div>
+        <div>@selectedTeam.MemberStatus.Count</div>
         <div class="grid-container">
-            @foreach (var member in selectedTeam.MemberStatusList)
+            @foreach (var member in selectedTeam.MemberStatus)
             {
                 <div class="grid-item">
                     <input class="input" />

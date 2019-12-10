@@ -32,22 +32,16 @@
     "TotalWorkHrs": -2147483648,
     "TotalSprintHrs": -2147483648,
     "SprintPercent": -2147483648,
-    "MemberStatus": {},
-    "Sprints": []
-  },
-  {
-    "Name": "Bob",
-    "AvgVelocity": -2147483648,
-    "TotalWorkHrs": -2147483648,
-    "TotalSprintHrs": -2147483648,
-    "SprintPercent": -2147483648,
-    "MemberStatusList": [
-      {
-        "Name": "Joe",
-        "WorkHours": -2147483648,
-        "SprintHours": -2147483648
-      }
-    ],
+    "MemberStatus": {
+      "A": [
+        -2147483648,
+        -2147483648
+      ],
+      "B": [
+        -2147483648,
+        -2147483648
+      ]
+    },
     "Sprints": []
   }
 ]
