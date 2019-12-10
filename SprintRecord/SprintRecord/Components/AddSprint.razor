@@ -18,18 +18,21 @@
     .grid-container {
       display: grid;
       grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
-      background-color: #7A7374;
-      padding: 10px;
+      background-color: #2b73af;
+      padding: 2px;
     }
     .grid-item {
       background-color: rgba(226, 225, 228, 0.8);
       border: 1px solid rgba(0, 0, 0, 0.8);
-      padding: 10px;
-      font-size: 20px;
+      padding: 2px;
+      font-size: 10px;
       text-align: center;
     }
     .input{
         width: 60px;
+    }
+    .item1{
+        grid-column: 4 / 14;
     }
 </style>
 
@@ -59,10 +62,14 @@
     {
         <div>@selectedTeam.MemberStatusList.Count</div>
         <div class="grid-container">
+            <div class="grid-item">Name</div>
+            <div class="grid-item">Work Hours</div>
+            <div class="grid-item">Sprint Hours</div>
+            <div class="item1">percent</div>
             @foreach (var member in selectedTeam.MemberStatusList)
             {
                 <div class="grid-item">
-                    <input class="input" />
+                    <div>@member.Name</div>
                 </div>
                 <div class="grid-item">
                     <input class="input" />
@@ -101,7 +108,7 @@
                     <input class="input" />
                 </div>
             }
-        
+
         </div>
     }
 
