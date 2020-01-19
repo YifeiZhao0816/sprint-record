@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SprintRecord.Models;
-using SprintRecord.Services;
 
 namespace SprintRecord.Pages
 {
@@ -15,7 +14,7 @@ namespace SprintRecord.Pages
         private readonly ILogger<IndexModel> _logger;
 
 
-        public IndexModel(ILogger<IndexModel> logger, JsonTeamService jsonTeamService)
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
         }

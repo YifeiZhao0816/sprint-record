@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SprintRecord.Services;
-
+using SprintRecord.Models;
 namespace SprintRecord
 {
     public class Startup
@@ -27,7 +27,15 @@ namespace SprintRecord
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddHttpClient();
-            services.AddTransient<JsonTeamService>();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
+            });
+
+            var connection = "Server=localhost;Port=3306;Database=sprintcapacity;Uid=root;Pwd=Zyf136142!;";
+            services.AddDbContext<SprintDbContext>(options => options.UseMySql(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

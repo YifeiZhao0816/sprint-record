@@ -3,10 +3,6 @@
 @{
     ViewData["Title"] = "Home page";
 }
-@using SprintRecord.Components
-
-@(await Html.RenderComponentAsync<AddSprint>(RenderMode.ServerPrerendered))
-@(await Html.RenderComponentAsync<ListTeams>(RenderMode.ServerPrerendered))
 
 
 <script src="_framework/blazor.server.js"></script>
