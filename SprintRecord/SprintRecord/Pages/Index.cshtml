@@ -3,7 +3,40 @@
 @{
     ViewData["Title"] = "Home page";
 }
+@using SprintRecord.Models
+@inject SprintContext  dbContext
 
-<div class="text"
+<style>
+    .button {
+        background-color: #525288;
+        border: none;
+        color: white;
+        padding: 10px 22px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 8px 4px;
+        cursor: pointer;
+    }
+</style>
+
+@functions{
+
+}
+
+<button class="button" >Add Team</button>
+
+<div class="card-columns">
+    @foreach (var item in dbContext.Teams)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="card-text">Team: </div>
+                <h4 class="card-title">@item.Name</h4>
+            </div>
+        </div>
+    }
+</div>
 
 <script src="_framework/blazor.server.js"></script>
