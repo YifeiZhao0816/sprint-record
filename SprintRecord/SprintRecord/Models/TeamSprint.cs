@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SprintRecord.Models
 {
-    public class TeamSprint
+    [Table("team_sprint")]
+    public partial class TeamSprint
     {
-        public int ID { get; set; }
-        public int TeamId { get; set; }
-        public int SprintID { get; set; }
+        [Key]
+        [Column("id", TypeName = "int(11)")]
+        public int Id { get; set; }
+        [Column("sprintid", TypeName = "int(11)")]
+        public int Sprintid { get; set; }
+        [Column("teamid", TypeName = "int(11)")]
+        public int Teamid { get; set; }
+        [Column("capacity", TypeName = "int(11)")]
         public int Capacity { get; set; }
-        public int CarryOver { get; set; }
-        public int PointsAdded { get; set; }
+        [Column("carryover", TypeName = "int(11)")]
+        public int Carryover { get; set; }
+        [Column("pointsadded", TypeName = "int(11)")]
+        public int Pointsadded { get; set; }
+        [Column("completed", TypeName = "int(11)")]
         public int Completed { get; set; }
+        [Column("commitment", TypeName = "int(11)")]
         public int Commitment { get; set; }
     }
 }

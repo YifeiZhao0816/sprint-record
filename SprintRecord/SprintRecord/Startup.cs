@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SprintRecord.Models;
+
 namespace SprintRecord
 {
     public class Startup
@@ -35,7 +36,7 @@ namespace SprintRecord
             });
 
             var connection = "Server=localhost;Port=3306;Database=sprintcapacity;Uid=root;Pwd=Zyf136142!;";
-            services.AddDbContext<SprintDbContext>(options => options.UseMySql(connection));
+            services.AddDbContext<SprintContext>(options => options.UseMySql(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
