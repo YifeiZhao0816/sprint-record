@@ -15,6 +15,8 @@ namespace SprintRecord
 {
     public class Startup
     {
+        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,7 +37,7 @@ namespace SprintRecord
                 options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
 
-            var connection = "Server=localhost;Port=3306;Database=sprintcapacity;Uid=root;Pwd=Zyf136142!;";
+            var connection = Configuration["dbConnectionString"];
             services.AddDbContext<SprintContext>(options => options.UseMySql(connection));
         }
 
