@@ -9,6 +9,8 @@ namespace SprintRecord.Services
     public class SprintService
     {
         public SprintContext Context { get; set; }
+
+
         public SprintService(SprintContext context) 
         {
             Context = context;
@@ -43,5 +45,19 @@ namespace SprintRecord.Services
             return list.Exists(x => x.team.Id == TeamId);
         }
 
+        public List<Sprints> GetSprints(int teamId)
+        {
+            List<Sprints> sprints = Context.Sprints.ToList();
+            List<TeamSprint> TeamSprints = Context.TeamSprint.ToList().FindAll(ts => ts.Teamid == teamId);
+            List<Sprints> list = sprints.FindAll(s => TeamSprints.Exists(ts => ts.Sprintid == s.Id));
+            list = list.OrderBy(x => x.Name).ToList();
+            return list;
+        }
+
+        public List<Developers> GetTeamDevelopers(int teamId)
+        {
+            List<TeamDeveloper> teamDeveloperRecords = Context.TeamDeveloper.ToList();
+            return Context.Developers.ToList().FindAll(d => teamDeveloperRecords.Exists(td => td.Teamid == teamId && td.Developerid == d.Id));
+        }
     }
 }

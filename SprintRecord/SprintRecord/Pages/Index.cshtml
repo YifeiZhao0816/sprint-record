@@ -23,20 +23,19 @@
     }
 </style>
 
-@functions{
-
-}
 
 <button class="button">Add Team</button>
 
 <div class="card-columns">
     @foreach (var item in sprintService.GetActiveTeamStatuses())
     {
-        <div class="card">
+        <div class="card" >
             <div class="card-body">
                 <div class="card-text">Team: </div>
                 <h4 class="card-title">@item.team.Name</h4>
-                <div class="text-body">@item.AverageVelocity</div>
+                <div class="text-body">Total Sprints: @item.SprintCounts</div>
+                <div class="text-body">Average Velocity: @item.AverageVelocity</div>
+                <a asp-page="./TeamDetail" asp-route-id="@item.team.Id">See Detail</a>
             </div>
         </div>
     }

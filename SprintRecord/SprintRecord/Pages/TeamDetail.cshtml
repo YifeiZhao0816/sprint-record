@@ -1,0 +1,49 @@
+﻿@page 
+@RouteData.Values["id"]
+@model SprintRecord.Pages.TeamDetailModel
+@using SprintRecord.Models
+@{
+    ViewData["Title"] = "TeamDetail";
+}
+
+
+<h1>@Model.team.Name</h1>
+<table class="table">
+    <thead>
+        <h5>Developers</h5>
+    </thead>
+    <tbody>
+        @foreach (Developers developer in Model.TeamDevelopers)
+        {
+            <tr>
+                <div class="text-body">@developer.Name</div>
+            </tr>
+        }
+    </tbody>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h4>Sprints List</h4>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sprint in Model.Sprints)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => sprint.Name)
+            </td>
+            <!--<td>
+        <a asp-page="./Edit" asp-route-id="@sprint.Id">Edit</a> |
+        <a asp-page="./Details" asp-route-id="@sprint.Id">Details</a> |
+        <a asp-page="./Delete" asp-route-id="@sprint.Id">Delete</a>
+    </td>-->
+        </tr>
+        }
+    </tbody>
+</table>
+
+
