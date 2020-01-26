@@ -24,18 +24,25 @@
 </style>
 
 
-<button class="button">Add Team</button>
+<a class="button" asp-page="./CreateTeam">Add Team</a>
 
 <div class="card-columns">
-    @foreach (var item in sprintService.GetActiveTeamStatuses())
+    @foreach (var item in dbContext.Teams.ToList())
     {
         <div class="card" >
             <div class="card-body">
                 <div class="card-text">Team: </div>
-                <h4 class="card-title">@item.Team.Name</h4>
-                <div class="text-body">Total Sprints: @item.SprintCounts</div>
-                <div class="text-body">Average Velocity: @item.AverageVelocity</div>
-                <a asp-page="./TeamDetail" asp-route-id="@item.Team.Id">See Detail</a>
+                <h4 class="card-title">@item.Name</h4>
+                @if (sprintService.GetSprints(item.Id).Count != 0)
+                {
+                    <div class="text-body">Total Sprints: @sprintService.GetSprints(item.Id).Count</div>
+                    <div class="text-body">Average Velocity: @sprintService.GetTeamStatus(item.Id).AverageVelocity</div>
+                }
+                else
+                {
+                    <div class="text-body">This is a new team with no sprints!</div>
+                }
+                <a asp-page="./TeamDetail" asp-route-id="@item.Id">See Detail</a>
             </div>
         </div>
     }

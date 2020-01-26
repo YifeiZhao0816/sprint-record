@@ -54,6 +54,10 @@ namespace SprintRecord.Services
                 TotalVelocity += item.Completed;
             }
             int sprintCount = teamSprintsRecords.Count;
+            if (sprintCount == 0)
+            {
+                return new TeamStatus(team, 0, 0, developers, teamSprintsRecords, sprintslist);
+            }
             return new TeamStatus(team, TotalVelocity / sprintCount, sprintCount, developers, teamSprintsRecords, sprintslist);
         }
 
