@@ -12,11 +12,9 @@ namespace SprintRecord.Pages
 {
     public class TeamDetailModel : PageModel
     {
-        public Teams team { get; set; }
+        public TeamStatus TeamDetail { get; set; }
         public SprintContext Context { get; set; }
         public SprintService SprintService { get; set; }
-        public List<Sprints> Sprints { get; set; }
-        public List<Developers> TeamDevelopers { get; set; }
         public TeamDetailModel(SprintContext context, SprintService sprintService)
         {
             Context = context;
@@ -24,9 +22,7 @@ namespace SprintRecord.Pages
         }
         public void OnGet(int id)
         {
-            team = Context.Teams.ToList().Find(x => x.Id == id);
-            Sprints = SprintService.GetSprints(id);
-            TeamDevelopers = SprintService.GetTeamDevelopers(id);
+            TeamDetail = SprintService.GetTeamStatus(id);
         }
     }
 }

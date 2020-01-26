@@ -32,10 +32,10 @@
         <div class="card" >
             <div class="card-body">
                 <div class="card-text">Team: </div>
-                <h4 class="card-title">@item.team.Name</h4>
+                <h4 class="card-title">@item.Team.Name</h4>
                 <div class="text-body">Total Sprints: @item.SprintCounts</div>
                 <div class="text-body">Average Velocity: @item.AverageVelocity</div>
-                <a asp-page="./TeamDetail" asp-route-id="@item.team.Id">See Detail</a>
+                <a asp-page="./TeamDetail" asp-route-id="@item.Team.Id">See Detail</a>
             </div>
         </div>
     }

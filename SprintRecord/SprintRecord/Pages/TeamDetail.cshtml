@@ -5,22 +5,34 @@
 @{
     ViewData["Title"] = "TeamDetail";
 }
+<style>
+    .column{
+        width:33.33%;
+        float:left;
+        padding:15px;
+    }
+</style>
 
-
-<h1>@Model.team.Name</h1>
-<table class="table">
-    <thead>
-        <h5>Developers</h5>
-    </thead>
-    <tbody>
-        @foreach (Developers developer in Model.TeamDevelopers)
-        {
-            <tr>
-                <div class="text-body">@developer.Name</div>
-            </tr>
-        }
-    </tbody>
-</table>
+<h1>@Model.TeamDetail.Team.Name</h1>
+<div class="column">
+    <table class="table">
+        <thead>
+            <h5>Developers</h5>
+        </thead>
+        <tbody>
+            @foreach (Developers developer in Model.TeamDetail.Developers)
+            {
+                <tr>
+                    <div class="text-body">@developer.Name</div>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="column">
+    <div><h5>Average Velocity: @Model.TeamDetail.AverageVelocity</h5></div>
+    <div><h5>Total Sprints: @Model.TeamDetail.SprintCounts</h5></div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -30,17 +42,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var sprint in Model.Sprints)
+        @foreach (var sprint in Model.TeamDetail.Sprints)
         {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => sprint.Name)
             </td>
-            <!--<td>
+            <td>
+                <div class="text-body">Capacity: @Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Capacity</div>
+                <div class="text-body">Completed: @Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Completed</div>
+            </td>
+            <td>
         <a asp-page="./Edit" asp-route-id="@sprint.Id">Edit</a> |
         <a asp-page="./Details" asp-route-id="@sprint.Id">Details</a> |
         <a asp-page="./Delete" asp-route-id="@sprint.Id">Delete</a>
-    </td>-->
+                </td>
         </tr>
         }
     </tbody>
