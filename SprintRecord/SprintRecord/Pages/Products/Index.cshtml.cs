@@ -24,5 +24,6 @@ namespace SprintRecord
         {
             Sprints = await _context.Sprints.ToListAsync();
         }
+
     }
 }

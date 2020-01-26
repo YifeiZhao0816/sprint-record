@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace SprintRecord.Models
 {
@@ -21,14 +22,6 @@ namespace SprintRecord.Models
         public virtual DbSet<TeamSprint> TeamSprint { get; set; }
         public virtual DbSet<Teams> Teams { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;port=3306;database=sprintcapacity;uid=root;pwd=Zyf136142!", x => x.ServerVersion("8.0.18-mysql"));
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

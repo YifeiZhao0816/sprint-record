@@ -13,7 +13,6 @@ namespace SprintRecord.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         public SprintContext dbContext { get; set; }
-        
 
 
         public IndexModel(ILogger<IndexModel> logger, SprintContext context)

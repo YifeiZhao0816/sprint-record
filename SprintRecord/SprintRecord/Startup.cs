@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SprintRecord.Models;
+using SprintRecord.Services;
 
 namespace SprintRecord
 {
@@ -30,6 +31,7 @@ namespace SprintRecord
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddHttpClient();
+            services.AddTransient<SprintService>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

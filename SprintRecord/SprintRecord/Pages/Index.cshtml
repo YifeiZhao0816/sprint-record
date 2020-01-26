@@ -4,7 +4,9 @@
     ViewData["Title"] = "Home page";
 }
 @using SprintRecord.Models
+@using SprintRecord.Services
 @inject SprintContext  dbContext
+@inject SprintService  sprintService
 
 <style>
     .button {
@@ -25,15 +27,16 @@
 
 }
 
-<button class="button" >Add Team</button>
+<button class="button">Add Team</button>
 
 <div class="card-columns">
-    @foreach (var item in dbContext.Teams)
+    @foreach (var item in sprintService.GetActiveTeamStatuses())
     {
         <div class="card">
             <div class="card-body">
                 <div class="card-text">Team: </div>
-                <h4 class="card-title">@item.Name</h4>
+                <h4 class="card-title">@item.team.Name</h4>
+                <div class="text-body">@item.AverageVelocity</div>
             </div>
         </div>
     }
