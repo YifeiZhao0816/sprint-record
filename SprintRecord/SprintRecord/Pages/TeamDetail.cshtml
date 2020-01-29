@@ -46,6 +46,22 @@
     </div>
 </div>
 
+<div class="row" id="LinkDevForm" hidden="hidden">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NewDeveloper.Name" class="control-label"></label>
+                <select multiple="multiple" asp-for="@Model.SelectedDevelopers" asp-items="@Model.AllDevelopers">
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add these developer" class="btn btn-primary" asp-page-handler="Test"/>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 
 <div class="column">
@@ -100,6 +116,7 @@
 <script>
 
     document.getElementById("NewDevBtn").addEventListener("click", ExpandAddDevPanel);
+    document.getElementById("LinkDevBtn").addEventListener("click", ExpandLinkDevPanel);
 
     function ExpandAddDevPanel() {
         document.getElementById("AddDevForm").hidden = !document.getElementById("AddDevForm").hidden;
@@ -108,6 +125,16 @@
         }
         else {
             document.getElementById("NewDevbtn").textContent = "Collapse"; 
+        }
+    }
+
+    function ExpandLinkDevPanel() {
+        document.getElementById("LinkDevForm").hidden = !document.getElementById("LinkDevForm").hidden;
+        if (document.getElementById("LinkDevbtn").textContent == "Collapse") {
+            document.getElementById("LinkDevbtn").textContent = "Add These Developer"; 
+        }
+        else {
+            document.getElementById("LinkDevbtn").textContent = "Collapse"; 
         }
     }
 </script>

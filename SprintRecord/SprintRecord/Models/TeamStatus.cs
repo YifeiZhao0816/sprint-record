@@ -18,13 +18,6 @@ namespace SprintRecord.Models
             Sprints = sprints;
         }
 
-        public TeamStatus(Teams team, int averageVelocity, int totalSprint)
-        {
-            Team = team;
-            AverageVelocity = averageVelocity;
-            SprintCounts = totalSprint;
-        }
-
         public TeamStatus(Teams team, int averageVelocity, int totalSprint,
             TeamSprint teamSprint)
         {

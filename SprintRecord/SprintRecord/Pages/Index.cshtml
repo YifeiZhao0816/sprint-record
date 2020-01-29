@@ -61,6 +61,14 @@
     }
 </div>
 
+<h4>Developers List</h4>
+@foreach (var dev in Model.AllDevelopers)
+{
+    <h6>@dev.Name</h6>
+}
+
+
+
 <script src="_framework/blazor.server.js"></script>
 <script>
     document.getElementById("AddDeveloperBtn").addEventListener("click", ExpandAddDeveloperPanel);

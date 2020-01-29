@@ -15,7 +15,7 @@ namespace SprintRecord.Pages
         public SprintContext dbContext { get; set; }
         [BindProperty]
         public Developers NewDeveloper { get; set; }
-
+        public List<Developers> AllDevelopers { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, SprintContext context)
         {
@@ -25,7 +25,7 @@ namespace SprintRecord.Pages
 
         public void OnGet()
         {
-           
+            AllDevelopers = dbContext.Developers.ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
