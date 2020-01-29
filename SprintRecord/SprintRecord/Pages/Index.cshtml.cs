@@ -13,6 +13,8 @@ namespace SprintRecord.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         public SprintContext dbContext { get; set; }
+        [BindProperty]
+        public Developers NewDeveloper { get; set; }
 
 
         public IndexModel(ILogger<IndexModel> logger, SprintContext context)
@@ -24,6 +26,20 @@ namespace SprintRecord.Pages
         public void OnGet()
         {
            
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            dbContext.Developers.Add(NewDeveloper);
+            await dbContext.SaveChangesAsync();
+
+
+            return RedirectToPage();
         }
 
 

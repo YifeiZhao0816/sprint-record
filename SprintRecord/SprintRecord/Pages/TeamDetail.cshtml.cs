@@ -15,14 +15,33 @@ namespace SprintRecord.Pages
         public TeamStatus TeamDetail { get; set; }
         public SprintContext Context { get; set; }
         public SprintService SprintService { get; set; }
+        [BindProperty]
+        public Developers NewDeveloper { get; set; }
+        public bool Test { get; set; }
+
         public TeamDetailModel(SprintContext context, SprintService sprintService)
         {
             Context = context;
             SprintService = sprintService;
+            Test = false;
         }
         public void OnGet(int id)
         {
             TeamDetail = SprintService.GetTeamStatus(id);
         }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            Context.Developers.Add(NewDeveloper);
+            await Context.SaveChangesAsync();
+            
+
+            return RedirectToPage();
+        }
+
     }
 }

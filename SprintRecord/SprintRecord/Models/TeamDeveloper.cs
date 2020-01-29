@@ -15,5 +15,15 @@ namespace SprintRecord.Models
         public int Teamid { get; set; }
         [Column("developerid", TypeName = "int(11)")]
         public int Developerid { get; set; }
+
+        public TeamDeveloper(int teamId, int developerId)
+        {
+            Teamid = teamId;
+            Developerid = developerId;
+        }
+
+        public TeamDeveloper()
+        {
+        }
     }
 }

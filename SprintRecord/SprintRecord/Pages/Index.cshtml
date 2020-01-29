@@ -5,6 +5,7 @@
 }
 @using SprintRecord.Models
 @using SprintRecord.Services
+@using SprintRecord.Components
 @inject SprintContext  dbContext
 @inject SprintService  sprintService
 
@@ -26,10 +27,23 @@
 
 <a class="button" asp-page="./CreateTeam">Add Team</a>
 
+<button id="AddDeveloperBtn" class="button">Add Developer</button>
+<form id="AddDeveloperForm" hidden="hidden" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="NewDeveloper.Name" class="control-label"></label>
+        <input asp-for="NewDeveloper.Name" class="form-control" />
+        <span asp-validation-for="NewDeveloper.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
 <div class="card-columns">
     @foreach (var item in dbContext.Teams.ToList())
     {
-        <div class="card" >
+        <div class="card">
             <div class="card-body">
                 <div class="card-text">Team: </div>
                 <h4 class="card-title">@item.Name</h4>
@@ -49,3 +63,17 @@
 </div>
 
 <script src="_framework/blazor.server.js"></script>
+<script>
+    document.getElementById("AddDeveloperBtn").addEventListener("click", ExpandAddDeveloperPanel);
+
+    function ExpandAddDeveloperPanel() {
+        document.getElementById("AddDeveloperForm").hidden = !document.getElementById("AddDeveloperForm").hidden;
+        if (document.getElementById("AddDeveloperBtn").textContent == "Collapse") {
+            document.getElementById("AddDeveloperBtn").textContent = "Add Developer"; 
+        }
+        else {
+            document.getElementById("AddDeveloperBtn").textContent = "Collapse"; 
+        }
+        
+    }
+</script>
