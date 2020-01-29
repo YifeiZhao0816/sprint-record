@@ -77,8 +77,8 @@ namespace SprintRecord.Services
 
         public List<Developers> GetTeamDevelopers(int teamId)
         {
-            List<TeamDeveloper> teamDeveloperRecords = Context.TeamDeveloper.ToList();
-            return Context.Developers.ToList().FindAll(d => teamDeveloperRecords.Exists(td => td.Teamid == teamId && td.Developerid == d.Id));
+            List<TeamDeveloper> teamDeveloperRecords = Context.TeamDeveloper.ToList().FindAll(td => td.Teamid == teamId);
+            return Context.Developers.ToList().FindAll(d => teamDeveloperRecords.Exists(td => td.Developerid == d.Id));
         }
     }
 }
