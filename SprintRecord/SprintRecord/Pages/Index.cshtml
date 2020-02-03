@@ -38,6 +38,9 @@
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </form>
+<a class="button" href="/TeamSprint/Index">Team Sprints</a>
+<a class="button" href="/Sprint/Index">Sprints</a>
+
 
 <div class="card-columns">
     @foreach (var item in dbContext.Teams.ToList())
@@ -76,11 +79,11 @@
     function ExpandAddDeveloperPanel() {
         document.getElementById("AddDeveloperForm").hidden = !document.getElementById("AddDeveloperForm").hidden;
         if (document.getElementById("AddDeveloperBtn").textContent == "Collapse") {
-            document.getElementById("AddDeveloperBtn").textContent = "Add Developer"; 
+            document.getElementById("AddDeveloperBtn").textContent = "Add Developer";
         }
         else {
-            document.getElementById("AddDeveloperBtn").textContent = "Collapse"; 
+            document.getElementById("AddDeveloperBtn").textContent = "Collapse";
         }
-        
+
     }
 </script>

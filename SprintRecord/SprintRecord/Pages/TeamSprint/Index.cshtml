@@ -1,0 +1,72 @@
+﻿@page 
+@model SprintRecord.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSprint[0].Sprintid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSprint[0].Teamid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSprint[0].Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSprint[0].Carryover)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSprint[0].Pointsadded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSprint[0].Completed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSprint[0].Commitment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TeamSprint) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sprintid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teamid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carryover)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pointsadded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Commitment)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,63 @@
+﻿@page
+@model SprintRecord.DetailsModel
+@using SprintRecord.Models
+@inject SprintContext Context
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TeamSprint</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamSprint.Sprintid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => Context.Sprints.ToList().Find(x => x.Id == model.TeamSprint.Sprintid).Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamSprint.Teamid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => Context.Teams.ToList().Find(x => x.Id == model.TeamSprint.Teamid).Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamSprint.Capacity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TeamSprint.Capacity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamSprint.Carryover)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TeamSprint.Carryover)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamSprint.Pointsadded)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TeamSprint.Pointsadded)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamSprint.Completed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TeamSprint.Completed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamSprint.Commitment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TeamSprint.Commitment)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TeamSprint.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

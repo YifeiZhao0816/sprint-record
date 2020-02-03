@@ -18,12 +18,11 @@ namespace SprintRecord
             _context = context;
         }
 
-        public IList<Sprints> Sprints { get;set; }
+        public IList<TeamSprint> TeamSprint { get;set; }
 
         public async Task OnGetAsync()
         {
-            Sprints = await _context.Sprints.ToListAsync();
+            TeamSprint = await _context.TeamSprint.ToListAsync();
         }
-
     }
 }

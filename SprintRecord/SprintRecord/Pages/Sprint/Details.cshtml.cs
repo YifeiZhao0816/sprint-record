@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SprintRecord.Models;
 
-namespace SprintRecord
+namespace SprintRecord.SprintViews
 {
     public class DetailsModel : PageModel
     {

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SprintRecord.Models;
 
-namespace SprintRecord
+namespace SprintRecord.SprintViews
 {
     public class EditModel : PageModel
     {

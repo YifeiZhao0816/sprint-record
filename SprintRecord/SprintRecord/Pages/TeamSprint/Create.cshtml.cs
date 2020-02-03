@@ -24,7 +24,7 @@ namespace SprintRecord
         }
 
         [BindProperty]
-        public Sprints Sprints { get; set; }
+        public TeamSprint TeamSprint { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -35,7 +35,7 @@ namespace SprintRecord
                 return Page();
             }
 
-            _context.Sprints.Add(Sprints);
+            _context.TeamSprint.Add(TeamSprint);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

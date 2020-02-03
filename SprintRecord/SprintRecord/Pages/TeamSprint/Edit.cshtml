@@ -1,0 +1,65 @@
+﻿@page
+@model SprintRecord.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TeamSprint</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TeamSprint.Id" />
+            <div class="form-group">
+                <label asp-for="TeamSprint.Sprintid" class="control-label"></label>
+                <input asp-for="TeamSprint.Sprintid" class="form-control" />
+                <span asp-validation-for="TeamSprint.Sprintid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamSprint.Teamid" class="control-label"></label>
+                <input asp-for="TeamSprint.Teamid" class="form-control" />
+                <span asp-validation-for="TeamSprint.Teamid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamSprint.Capacity" class="control-label"></label>
+                <input asp-for="TeamSprint.Capacity" class="form-control" />
+                <span asp-validation-for="TeamSprint.Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamSprint.Carryover" class="control-label"></label>
+                <input asp-for="TeamSprint.Carryover" class="form-control" />
+                <span asp-validation-for="TeamSprint.Carryover" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamSprint.Pointsadded" class="control-label"></label>
+                <input asp-for="TeamSprint.Pointsadded" class="form-control" />
+                <span asp-validation-for="TeamSprint.Pointsadded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamSprint.Completed" class="control-label"></label>
+                <input asp-for="TeamSprint.Completed" class="form-control" />
+                <span asp-validation-for="TeamSprint.Completed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamSprint.Commitment" class="control-label"></label>
+                <input asp-for="TeamSprint.Commitment" class="form-control" />
+                <span asp-validation-for="TeamSprint.Commitment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

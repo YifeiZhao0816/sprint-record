@@ -5,11 +5,21 @@
     ViewData["Title"] = "TeamDetail";
 }
 <style>
-    .column{
-        width:33.33%;
-        float:left;
-        padding:15px;
+    .custom-select {
+        position: relative;
+        font-family: Arial;
     }
+
+    .custom-select select {
+        display: none; /*hide original SELECT element:*/
+    }
+
+    .column {
+        width: 33.33%;
+        float: left;
+        padding: 15px;
+    }
+
     .button {
         background-color: #525288;
         border: none;
@@ -22,13 +32,12 @@
         margin: 8px 4px;
         cursor: pointer;
     }
-
 </style>
 
 <h1>@Model.TeamDetail.Team.Name</h1>
 
 <button id="NewDevBtn" class="button">Create a New Developer</button>
-<button id="LinkDevBtn" class="button">Add Existing Developer to team</button>
+<button id="LinkDevBtn" class="button">Add Existing Developer</button>
 
 <div class="row" id="AddDevForm" hidden="hidden">
     <div class="col-md-4">
@@ -50,13 +59,12 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" >
                 <label asp-for="NewDeveloper.Name" class="control-label"></label>
-                <select multiple="multiple" asp-for="@Model.SelectedDevelopers" asp-items="@Model.AllDevelopers">
-                </select>
+                <select class="custom-select" multiple="multiple"  asp-for="@Model.SelectedDevelopers" asp-items="@Model.AllDevelopers"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add these developer" class="btn btn-primary" asp-page-handler="Test"/>
+                <input type="submit" value="Add these developer" class="btn btn-primary" asp-page-handler="Test" />
             </div>
         </form>
     </div>
@@ -94,20 +102,20 @@
     <tbody>
         @foreach (var sprint in Model.TeamDetail.Sprints)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => sprint.Name)
-            </td>
-            <td>
-                <div class="text-body">Capacity: @Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Capacity</div>
-                <div class="text-body">Completed: @Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Completed</div>
-            </td>
-            <td>
-        <a asp-page="./Edit" asp-route-id="@sprint.Id">Edit</a> |
-        <a asp-page="./Details" asp-route-id="@sprint.Id">Details</a> |
-        <a asp-page="./Delete" asp-route-id="@sprint.Id">Delete</a>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => sprint.Name)
                 </td>
-        </tr>
+                <td>
+                    <div class="text-body">Capacity: @Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Capacity</div>
+                    <div class="text-body">Completed: @Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Completed</div>
+                </td>
+                <td>
+                    <a href="/teamsprint/Edit?id=@sprint.Id" >Edit</a> |
+                    <a href="/teamsprint/Details?id=@sprint.Id">Details</a> |
+                    <a href="/teamsprint/Delete?id=@sprint.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -120,21 +128,21 @@
 
     function ExpandAddDevPanel() {
         document.getElementById("AddDevForm").hidden = !document.getElementById("AddDevForm").hidden;
-        if (document.getElementById("NewDevbtn").textContent == "Collapse") {
-            document.getElementById("NewDevbtn").textContent = "Add Developer"; 
+        if (document.getElementById("NewDevBtn").textContent == "Collapse") {
+            document.getElementById("NewDevBtn").textContent = "Add Developer";
         }
         else {
-            document.getElementById("NewDevbtn").textContent = "Collapse"; 
+            document.getElementById("NewDevBtn").textContent = "Collapse";
         }
     }
 
     function ExpandLinkDevPanel() {
         document.getElementById("LinkDevForm").hidden = !document.getElementById("LinkDevForm").hidden;
-        if (document.getElementById("LinkDevbtn").textContent == "Collapse") {
-            document.getElementById("LinkDevbtn").textContent = "Add These Developer"; 
+        if (document.getElementById("LinkDevBtn").textContent == "Collapse") {
+            document.getElementById("LinkDevBtn").textContent = "Add Existing Developer";
         }
         else {
-            document.getElementById("LinkDevbtn").textContent = "Collapse"; 
+            document.getElementById("LinkDevBtn").textContent = "Collapse";
         }
     }
 </script>
