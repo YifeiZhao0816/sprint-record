@@ -18,8 +18,10 @@ namespace SprintRecord.Models
         [Column("capacity", TypeName = "int(11)")]
         public int Capacity { get; set; }
         [Column("carryover", TypeName = "int(11)")]
+        [Display(Name = "Carry Over")]
         public int Carryover { get; set; }
         [Column("pointsadded", TypeName = "int(11)")]
+        [Display(Name = "Points Added")]
         public int Pointsadded { get; set; }
         [Column("completed", TypeName = "int(11)")]
         public int Completed { get; set; }
