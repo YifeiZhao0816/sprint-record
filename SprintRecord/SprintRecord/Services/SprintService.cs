@@ -80,5 +80,17 @@ namespace SprintRecord.Services
             List<TeamDeveloper> teamDeveloperRecords = Context.TeamDeveloper.ToList().FindAll(td => td.Teamid == teamId);
             return Context.Developers.ToList().FindAll(d => teamDeveloperRecords.Exists(td => td.Developerid == d.Id));
         }
+
+        public void DeleteTeam(int Id)
+        {
+            var team = Context.Teams.Find(Id);
+            var teamDevList = Context.TeamDeveloper.ToList().FindAll(r => r.Teamid == Id);
+            Context.Teams.Remove(team);
+            foreach (var dev in teamDevList)
+            {
+                Context.TeamDeveloper.Remove(dev);
+            }
+            Context.SaveChanges();
+        }
     }
 }

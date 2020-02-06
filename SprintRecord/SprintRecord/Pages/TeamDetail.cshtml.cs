@@ -64,5 +64,11 @@ namespace SprintRecord.Pages
             return RedirectToPage();
         }
 
+        public async Task<IActionResult> OnPostDeleteAsync()
+        {
+            SprintService.DeleteTeam(RandomDebugStuff.MyProperty);
+            return RedirectToPage("./Index");
+        }
+
     }
 }

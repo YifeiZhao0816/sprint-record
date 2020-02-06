@@ -12,10 +12,14 @@ namespace SprintRecord
     public class CreateModel : PageModel
     {
         private readonly SprintRecord.Models.SprintContext _context;
+        public SelectList TeamSelector { get; set; }
+        public SelectList SprintSelector { get; set; }
 
         public CreateModel(SprintRecord.Models.SprintContext context)
         {
             _context = context;
+            TeamSelector = new SelectList(_context.Teams.ToList(), nameof(Teams.Id), nameof(Teams.Name));
+            SprintSelector = new SelectList(_context.Sprints.ToList(), nameof(Sprints.Id), nameof(Sprints.Name));
         }
 
         public IActionResult OnGet()
