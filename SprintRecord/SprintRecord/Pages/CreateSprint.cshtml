@@ -1,0 +1,11 @@
+﻿@page
+@model SprintRecord.CreateSprintModel
+@using SprintRecord.Components
+@{
+    ViewData["Title"] = "CreateSprint";
+}
+
+@(await Html.RenderComponentAsync<CreateSprints>(RenderMode.Server))
+
+<script src="_framework/blazor.server.js"></script>
+

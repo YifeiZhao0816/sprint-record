@@ -5,14 +5,18 @@
     ViewData["Title"] = "TeamDetail";
 }
 <style>
+    .title {
+        color: #276893;
+    }
+
     .custom-select {
         position: relative;
         font-family: Arial;
     }
 
-    .custom-select select {
-        display: none; /*hide original SELECT element:*/
-    }
+        .custom-select select {
+            display: none;
+        }
 
     .column {
         width: 33.33%;
@@ -32,46 +36,10 @@
         margin: 8px 4px;
         cursor: pointer;
     }
+
 </style>
 
-<h1>@Model.TeamDetail.Team.Name</h1>
-
-<button id="NewDevBtn" class="button">Create a New Developer</button>
-<button id="LinkDevBtn" class="button">Add Existing Developer</button>
-<a href="/TeamSprint/Create" class="button">Add Sprint</a>
-<form method="post"><input type="submit" value="Delete" class="btn btn-danger" asp-page-handler="Delete"/></form>
-
-<div class="row" id="AddDevForm" hidden="hidden">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NewDeveloper.Name" class="control-label"></label>
-                <input asp-for="NewDeveloper.Name" class="form-control" />
-                <span asp-validation-for="NewDeveloper.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Add This Developer" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="row" id="LinkDevForm" hidden="hidden">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group" >
-                <label asp-for="NewDeveloper.Name" class="control-label"></label>
-                <select class="custom-select" multiple="multiple"  asp-for="@Model.SelectedDevelopers" asp-items="@Model.AllDevelopers"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Add these developer" class="btn btn-primary" asp-page-handler="Test" />
-            </div>
-        </form>
-    </div>
-</div>
-
+<h1 class="title">@Model.TeamDetail.Team.Name</h1>
 
 
 <div class="column">
@@ -89,10 +57,72 @@
         </tbody>
     </table>
 </div>
+
 <div class="column">
-    <div><h5>Average Velocity: @Model.TeamDetail.AverageVelocity</h5></div>
-    <div><h5>Total Sprints: @Model.TeamDetail.SprintCounts</h5></div>
+    <table>
+        <tr>
+            <td><h5>Total Sprints: </h5></td>
+            <td><h5>@Model.TeamDetail.SprintCounts</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Average Velocity: </h5></td>
+            <td><h5>@Model.TeamDetail.AverageVelocity</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Average Commitment: </h5></td>
+            <td><h5>@Model.TeamDetail.AverageCommitment</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Average Carry Over: </h5></td>
+            <td><h5>@Model.TeamDetail.AverageCarryOver</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Average Points Added: </h5></td>
+            <td><h5>@Model.TeamDetail.AveragePtsAdded</h5></td>
+        </tr>
+    </table>
 </div>
+
+<div class="column">
+    <button id="NewDevBtn" class="button">Create a New Developer</button>
+    <button id="LinkDevBtn" class="button" style="width:auto">Add Existing Developer</button>
+    <a href="/TeamSprint/Create" id="NewSprintBtn"class="button" style="width:auto">Add Sprint</a>
+    <form method="post" id="DeleteForm"><input type="submit" value="Delete" class="btn btn-danger" asp-page-handler="Delete" style="width:auto"/></form>
+    <h4 class="alert-danger" hidden="hidden" id="deleteWarning">All teamsprints and teamdeveloper record will also be deleted. Are you sure you want to delete?</h4>
+
+    <div class="row" id="AddDevForm" hidden="hidden">
+        <div class="col">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="NewDeveloper.Name" class="control-label"></label>
+                    <input asp-for="NewDeveloper.Name" class="form-control" />
+                    <span asp-validation-for="NewDeveloper.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add This Developer" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" id="LinkDevForm" hidden="hidden">
+        <div class="col">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="NewDeveloper.Name" class="control-label"></label>
+                    <select class="custom-select" multiple="multiple" asp-for="@Model.SelectedDevelopers" asp-items="@Model.AllDevelopers"></select>
+                    <h6>Hold Ctrl for multiple selection</h6>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add these developer" class="btn btn-primary" asp-page-handler="Test" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -113,9 +143,9 @@
                     <div class="text-body">Completed: @Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Completed</div>
                 </td>
                 <td>
-                    <a href="/teamsprint/Edit?id=@sprint.Id" >Edit</a> |
-                    <a href="/teamsprint/Details?id=@sprint.Id">Details</a> |
-                    <a href="/teamsprint/Delete?id=@sprint.Id">Delete</a>
+                    <a href="/teamsprint/Edit?id=@Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Id" >Edit</a> |
+                    <a href="/teamsprint/Details?id=@Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Id">Details</a> |
+                    <a href="/teamsprint/Delete?id=@Model.TeamDetail.TeamSprints.Find(x => x.Sprintid == sprint.Id).Id">Delete</a>
                 </td>
             </tr>
         }
@@ -127,6 +157,20 @@
 
     document.getElementById("NewDevBtn").addEventListener("click", ExpandAddDevPanel);
     document.getElementById("LinkDevBtn").addEventListener("click", ExpandLinkDevPanel);
+    document.getElementById("DeleteForm").addEventListener("click", ShowWarning);
+
+    function ShowWarning() {
+        document.getElementById("DeleteWarning").hidden = !document.getElementById("DeleteWarning").hidden;
+    }
+
+    function HideButtons(id) {
+        var buttonsId = ["NewDevBtn", "LinkDevBtn", "NewSprintBtn", "DeleteForm"];
+        buttonsId.forEach(function (item) {
+            if (item != id) {
+                document.getElementById(item).hidden = !document.getElementById(item).hidden;
+            }
+        });
+    }
 
     function ExpandAddDevPanel() {
         document.getElementById("AddDevForm").hidden = !document.getElementById("AddDevForm").hidden;
@@ -136,6 +180,7 @@
         else {
             document.getElementById("NewDevBtn").textContent = "Collapse";
         }
+        HideButtons("NewDevBtn");
     }
 
     function ExpandLinkDevPanel() {
@@ -146,5 +191,6 @@
         else {
             document.getElementById("LinkDevBtn").textContent = "Collapse";
         }
+        HideButtons("LinkDevBtn");
     }
 </script>

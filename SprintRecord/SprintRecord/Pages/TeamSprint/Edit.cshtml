@@ -16,13 +16,11 @@
             <input type="hidden" asp-for="TeamSprint.Id" />
             <div class="form-group">
                 <label asp-for="TeamSprint.Sprintid" class="control-label"></label>
-                <input asp-for="TeamSprint.Sprintid" class="form-control" />
-                <span asp-validation-for="TeamSprint.Sprintid" class="text-danger"></span>
+                <select class="custom-select" asp-for="TeamSprint.Sprintid" asp-items="@Model.SprintSelector"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TeamSprint.Teamid" class="control-label"></label>
-                <input asp-for="TeamSprint.Teamid" class="form-control" />
-                <span asp-validation-for="TeamSprint.Teamid" class="text-danger"></span>
+                <select class="custom-select" asp-for="TeamSprint.Teamid" asp-items="@Model.TeamSelector"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TeamSprint.Capacity" class="control-label"></label>

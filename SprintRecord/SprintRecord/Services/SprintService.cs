@@ -16,16 +16,16 @@ namespace SprintRecord.Services
             Context = context;
         }
 
-        public List<TeamStatus> GetActiveTeamStatuses()
+        public List<TeamOverview> GetActiveTeamStatuses()
         {
-            List<TeamStatus> list = new List<TeamStatus>();
+            List<TeamOverview> list = new List<TeamOverview>();
             List<Teams> teams = Context.Teams.ToList();
             foreach (TeamSprint record in Context.TeamSprint)
             {
                 Teams targetTeam = teams.Single(x => x.Id == record.Teamid);
                 if (!TeamExistInList(record.Teamid, list))
                 {
-                    list.Add(new TeamStatus(targetTeam, record.Completed, 1, record));
+                    list.Add(new TeamOverview(targetTeam, record, record.Completed, 1));
                 }
                 else
                 {
@@ -34,7 +34,7 @@ namespace SprintRecord.Services
                     list.Find(x => x.Team == targetTeam).TeamSprints.Add(record);
                 }
             }
-            foreach (TeamStatus status in list)
+            foreach (TeamOverview status in list)
             {
                 status.AverageVelocity /= status.SprintCounts;
                 status.Developers = GetTeamDevelopers(status.Team.Id);
@@ -42,26 +42,33 @@ namespace SprintRecord.Services
             return list;
         }
 
-        public TeamStatus GetTeamStatus(int teamId)
+        public TeamOverview GetTeamOverview(int teamId)
         {
-            var teamSprintsRecords = Context.TeamSprint.ToList().FindAll(x => x.Teamid == teamId);
-            var sprintslist = GetSprints(teamId);
-            var developers = GetTeamDevelopers(teamId);
-            var team = Context.Teams.Find(teamId);
-            int TotalVelocity = 0;
+            List<TeamSprint> teamSprintsRecords = Context.TeamSprint.ToList().FindAll(x => x.Teamid == teamId);
+            List<Sprints> sprintslist = GetSprints(teamId);
+            List<Developers> developers = GetTeamDevelopers(teamId);
+            Teams team = Context.Teams.Find(teamId);
+            TeamOverview resultTeam = new TeamOverview(team, developers, teamSprintsRecords, sprintslist);
+            resultTeam.SprintCounts = teamSprintsRecords.Count;
+            if (resultTeam.SprintCounts == 0)
+            {
+                return resultTeam;
+            }
             foreach (var item in teamSprintsRecords)
             {
-                TotalVelocity += item.Completed;
+                resultTeam.AverageVelocity += item.Completed;
+                resultTeam.AveragePtsAdded += item.Pointsadded;
+                resultTeam.AverageCommitment += item.Commitment;
+                resultTeam.AverageCarryOver += item.Carryover;
             }
-            int sprintCount = teamSprintsRecords.Count;
-            if (sprintCount == 0)
-            {
-                return new TeamStatus(team, 0, 0, developers, teamSprintsRecords, sprintslist);
-            }
-            return new TeamStatus(team, TotalVelocity / sprintCount, sprintCount, developers, teamSprintsRecords, sprintslist);
+            resultTeam.AverageVelocity /= resultTeam.SprintCounts;
+            resultTeam.AveragePtsAdded /= resultTeam.SprintCounts;
+            resultTeam.AverageCommitment /= resultTeam.SprintCounts;
+            resultTeam.AverageCarryOver /= resultTeam.SprintCounts;
+            return resultTeam;
         }
 
-        private bool TeamExistInList(int TeamId, List<TeamStatus> list)
+        private bool TeamExistInList(int TeamId, List<TeamOverview> list)
         {
             return list.Exists(x => x.Team.Id == TeamId);
         }
@@ -85,10 +92,15 @@ namespace SprintRecord.Services
         {
             var team = Context.Teams.Find(Id);
             var teamDevList = Context.TeamDeveloper.ToList().FindAll(r => r.Teamid == Id);
+            var teamSprintList = Context.TeamSprint.ToList().FindAll(r => r.Teamid == Id);
             Context.Teams.Remove(team);
             foreach (var dev in teamDevList)
             {
                 Context.TeamDeveloper.Remove(dev);
+            }
+            foreach (var teamSprintRecord in teamSprintList)
+            {
+                Context.TeamSprint.Remove(teamSprintRecord);
             }
             Context.SaveChanges();
         }

@@ -21,12 +21,18 @@
         margin: 8px 4px;
         cursor: pointer;
     }
+    .extraPadding {
+        padding: 10px 0px 10px 0px;
+    }
+    .card {
+
+    }
 </style>
 
 
 <a class="button" asp-page="./CreateTeam">Add Team</a>
-
 <button id="AddDeveloperBtn" class="button">Add Developer</button>
+<a class="button" asp-page="./CreateSprint">Add Sprints</a>
 <form id="AddDeveloperForm" hidden="hidden" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
@@ -38,37 +44,36 @@
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </form>
-<a class="button" href="/TeamSprint/Index">Team Sprints</a>
-<a class="button" href="/Sprint/Index">Sprints</a>
 
 
-<div class="card-columns">
+<div class="card-columns extraPadding">
     @foreach (var item in Context.Teams.ToList())
     {
-        <div class="card">
-            <div class="card-body">
-                <div class="card-text">Team: </div>
-                <h4 class="card-title">@item.Name</h4>
-                @if (sprintService.GetSprints(item.Id).Count != 0)
-                {
+        @if (sprintService.GetSprints(item.Id).Count != 0)
+        {
+            <div class="card" style="border-color:#525288">
+                <div class="card-body">
+                    <div class="card-text">Team: </div>
+                    <h4 class="card-title">@item.Name</h4>
                     <div class="text-body">Total Sprints: @sprintService.GetSprints(item.Id).Count</div>
-                    <div class="text-body">Average Velocity: @sprintService.GetTeamStatus(item.Id).AverageVelocity</div>
-                }
-                else
-                {
-                    <div class="text-body">This is a new team with no sprints!</div>
-                }
-                <a asp-page="./TeamDetail" asp-route-id="@item.Id">See Detail</a>
+                    <div class="text-body">Average Velocity: @sprintService.GetTeamOverview(item.Id).AverageVelocity</div>
+                    <a asp-page="./TeamDetail" asp-route-id="@item.Id">See Detail</a>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-text">Team: </div>
+                    <h4 class="card-title">@item.Name</h4>
+                    <div class="text-body">This is a new team with no sprints!</div>
+                    <a asp-page="./TeamDetail" asp-route-id="@item.Id">See Detail</a>
+                </div>
+            </div>
+        }
     }
 </div>
-
-<h4>Developers List</h4>
-@foreach (var dev in Model.AllDevelopers)
-{
-    <h6>@dev.Name</h6>
-}
 
 
 

@@ -13,6 +13,8 @@ namespace SprintRecord
     public class EditModel : PageModel
     {
         private readonly SprintRecord.Models.SprintContext _context;
+        public SelectList TeamSelector { get; set; }
+        public SelectList SprintSelector { get; set; }
 
         public EditModel(SprintRecord.Models.SprintContext context)
         {
@@ -30,6 +32,8 @@ namespace SprintRecord
             }
 
             TeamSprint = await _context.TeamSprint.FirstOrDefaultAsync(m => m.Id == id);
+            TeamSelector = new SelectList(_context.Teams.ToList(), nameof(Teams.Id), nameof(Teams.Name));
+            SprintSelector = new SelectList(_context.Sprints.ToList(), nameof(Sprints.Id), nameof(Sprints.Name));
 
             if (TeamSprint == null)
             {

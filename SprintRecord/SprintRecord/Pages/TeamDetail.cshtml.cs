@@ -13,7 +13,7 @@ namespace SprintRecord.Pages
 {
     public class TeamDetailModel : PageModel
     {
-        public TeamStatus TeamDetail { get; set; }
+        public TeamOverview TeamDetail { get; set; }
         public SprintContext Context { get; set; }
         public SprintService SprintService { get; set; }
         [BindProperty]
@@ -29,7 +29,7 @@ namespace SprintRecord.Pages
         }
         public void OnGet(int id)
         {
-            TeamDetail = SprintService.GetTeamStatus(id);
+            TeamDetail = SprintService.GetTeamOverview(id);
             AllDevelopers = new SelectList(Context.Developers.ToList().FindAll(d => !TeamDetail.Developers.ToList().Exists(td => td.Id == d.Id)), nameof(Developers.Id), nameof(Developers.Name));
             RandomDebugStuff.MyProperty = id;
         }

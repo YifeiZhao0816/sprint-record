@@ -1,0 +1,34 @@
+﻿@using SprintRecord.Models
+@using SprintRecord.Services
+@inject SprintContext dbContext
+@inject SprintService sprintService
+
+<h3>CreateSprints</h3>
+<form method="post">
+    <label>Sprint Name</label>
+    <input type="number" placeholder="Year yy" />
+    <input type="text" placeholder="S" />
+    <input type="number" placeholder="Sprintweek ww" />
+    <div class="col-md-4">
+        @foreach (Teams item in dbContext.Teams.ToList())
+        {
+            <button @onclick="selectTeam(@item.Id);">@item.Name</button>
+        }
+    </div>
+
+</form>
+@code {
+    List<int> SelectedTeams = new List<int>();
+
+    void selectTeam(int id)
+    {
+        if (SelectedTeams.Exists(r => r == id))
+        {
+            SelectedTeams.Remove(id);
+        }
+        else
+        {
+            SelectedTeams.Add(id);
+        }
+    }
+}
