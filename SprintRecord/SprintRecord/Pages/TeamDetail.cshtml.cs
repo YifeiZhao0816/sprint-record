@@ -33,7 +33,7 @@ namespace SprintRecord.Pages
             AllDevelopers = new SelectList(Context.Developers.ToList().FindAll(d => !TeamDetail.Developers.ToList().Exists(td => td.Id == d.Id)), nameof(Developers.Id), nameof(Developers.Name));
             RandomDebugStuff.MyProperty = id;
         }
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAddNewDevAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -42,8 +42,9 @@ namespace SprintRecord.Pages
 
             Context.Developers.Add(NewDeveloper);
             await Context.SaveChangesAsync();
-            
-
+            int developerId = NewDeveloper.Id;
+            Context.TeamDeveloper.Add(new TeamDeveloper { Teamid = RandomDebugStuff.MyProperty, Developerid = developerId });
+            await Context.SaveChangesAsync();
             return RedirectToPage();
         }
 
